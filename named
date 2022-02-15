@@ -1,3 +1,4 @@
+файл созданный /var/named/...
 $TTL 604800
 @       IN SOA  company.lab. root.company.lab. (
                                         4       ; serial
@@ -7,4 +8,39 @@ $TTL 604800
                                         604800 )
         IN      NS      centos.company.lab.
 centos  IN      A       192.168.0.108
+
+в конфиге
+options {
+        listen-on port 53 { any; };
+        directory       "/var/named";
+        dump-file       "/var/named/data/cache_dump.db";
+        statistics-file "/var/named/data/named_stats.txt";
+        memstatistics-file "/var/named/data/named_mem_stats.txt";
+        recursing-file  "/var/named/data/named.recursing";
+        secroots-file   "/var/named/data/named.secroots";
+        allow-query     { any; };
+
+        /*
+         - If you are building an AUTHORITATIVE DNS server, do NOT enable recursion.
+         - If you are building a RECURSIVE (caching) DNS server, you need to enable
+           recursion.
+         - If your recursive DNS server has a public IP address, you MUST enable access
+           control to limit queries to your legitimate users. Failing to do so will
+           cause your server to become part of large scale DNS amplification
+           attacks. Implementing BCP38 within your network would greatly
+           reduce such attack surface
+        */
+        recursion yes;
+        forwarders { 8.8.8.8; };
+        forward first;
+        
+        
+        
+В файле с зонами       
+        
+zone "company.lab" IN {
+        type master;
+        file "named.company.lab";
+};
+
 
