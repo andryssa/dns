@@ -1,0 +1,10 @@
+$TTL 604800
+@       IN SOA  company.lab. root.company.lab. (
+                                        4       ; serial
+                                        604800  ; refresh
+                                        86400   ; retry
+                                        2419200 ; expire
+                                        604800 )
+        IN      NS      centos.company.lab.
+centos  IN      A       192.168.0.108
+
