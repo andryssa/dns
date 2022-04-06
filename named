@@ -53,5 +53,9 @@ zone "company.lab" IN {
 		file "/var/cache/bind/demo.wsr";
 };
  16.5 systemctl restart bind9
+ 
+ также надо поменять разрешения на папку chown named:named ...
+ И отключить firewalld
+ 
 
 
