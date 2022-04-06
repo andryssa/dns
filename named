@@ -34,3 +34,24 @@ zone "company.lab" IN {
 };
 
 
+
+
+2 способ
+16.3 копируем днс файл cp /etc/bind/db.local /var/cache/bind/demo.wsr
+      localhost меняем demo.wsr.
+      @	IN	NS	demo.wsr.
+      @	IN	A	3.3.3.1
+    isp IN	A	3.3.3.1
+    www IN	A	4.4.4.100
+    www IN	A	5.5.5.100
+    internet	IN	CNAME	isp
+    int		IN	NS	rtr-l.demo.wsr.
+    rtr-l	IN	A	4.4.4.100
+ 16.4 добавляем зону /etc/bind/named.conf.default-zones
+    zone "demo.wsr"{
+		type master;
+		file "/var/cache/bind/demo.wsr";
+};
+ 16.5 systemctl restart bind9
+
+
